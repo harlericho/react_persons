@@ -1,9 +1,13 @@
 .App {
   text-align: center;
 }
-
+h2{
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
 }
 
@@ -20,7 +24,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(1px + 2vmin);
   color: white;
 }
 
@@ -35,4 +39,26 @@
   to {
     transform: rotate(360deg);
   }
+}
+#body{
+  background: #282c34;
+  color: #fff;
+  padding: 1rem;
+}
+#btnAdd{
+  margin-right: 5%;
+} 
+#btnEdit{
+  margin-right: 5%;
+} 
+#div{
+  background: #282c34;
+  border-color: #fff;
+}
+#div1{
+  color: #fff;
+}
+#inputCss{
+  background: #282c34;
+  color: #fff;
 }
