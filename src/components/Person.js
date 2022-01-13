@@ -27,6 +27,9 @@ const Person = () => {
     const inputRefDni = useRef()
     const inputRefNames = useRef()
     const inputRefEmail = useRef()
+    // reset input file with ref
+    const inputRefPhoto = useRef()
+
     // state form data person
     const [stateForm, setstateForm] = useState({
         id: '', dni: '', names: '', email: ''
@@ -45,14 +48,15 @@ const Person = () => {
     // function onSubmit
     const onSubmit = (e) => {
         e.preventDefault()
+        var params = new FormData()
+        params.append('id', id)
+        params.append('dni', dni)
+        params.append('names', names)
+        params.append('email', email)
+        params.append('file', preview.image_file)
         if (id === '') {
             // console.log(preview.image_file)
             // console.log(document.querySelector('input[type=file]').files[0])
-            var params = new FormData()
-            params.append('dni', dni)
-            params.append('names', names)
-            params.append('email', email)
-            params.append('file', preview.image_file)
             // params.append('file', document.querySelector('input[type=file]').files[0])
             axios.post(url + 'POST', params)
                 .then(res => {
@@ -84,14 +88,14 @@ const Person = () => {
                     console.error(err);
                 })
         } else {
-            var params1 = new FormData()
-            params1.append('id', id)
-            params1.append('dni', dni)
-            params1.append('names', names)
-            params1.append('email', email)
-            params1.append('file', preview.image_file)
+            // var params1 = new FormData()
+            // params1.append('id', id)
+            // params1.append('dni', dni)
+            // params1.append('names', names)
+            // params1.append('email', email)
+            // params1.append('file', preview.image_file)
             // params1.append('file', document.querySelector('input[type=file]').files[0])
-            axios.post(url + 'PUT', params1)
+            axios.post(url + 'PUT', params)
                 .then(res => {
                     if (res.data === true) {
                         Swal.fire({
@@ -125,7 +129,6 @@ const Person = () => {
 
     // function get data person for id
     const getData = (data) => {
-        console.log(data.photo)
         setstateForm({
             id: data.id,
             dni: data.dni,
@@ -135,6 +138,7 @@ const Person = () => {
         setPreview({
             image_preview: srcUrl + data.photo,
         })
+        inputRefDni.current.focus()
     }
 
     // function delete data person for id
@@ -183,7 +187,8 @@ const Person = () => {
         setPreview({
             image_preview: '', image_file: null
         })
-        document.getElementById('formData').reset()
+        // document.getElementById('formData').reset()
+        inputRefPhoto.current.value = ''
         inputRefDni.current.focus()
     }
 
@@ -201,6 +206,7 @@ const Person = () => {
     }
     useEffect(() => {
         listData()
+        inputRefDni.current.focus()
     }, [])
     return (
         <div>
@@ -223,7 +229,6 @@ const Person = () => {
                                         maxLength="10"
                                         id="inputCss"
                                         value={dni}
-                                        autoFocus
                                         required
                                         ref={inputRefDni}
                                         onChange={e => onInputChange(e)} />
@@ -259,6 +264,7 @@ const Person = () => {
                                         className="form-control input"
                                         name="photo"
                                         id="inputCss"
+                                        ref={inputRefPhoto}
                                         onChange={(e) => handleImagePreview(e)} />
                                 </div>
 
